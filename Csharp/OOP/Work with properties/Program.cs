@@ -16,14 +16,15 @@ class Program
     {
         public Player(int positionX, int positionY, char playerChar)
         {
-            positionX = positionX;
-            positionY = positionY;
+            PositionX = positionX;
+            PositionY = positionY;
             PlayerChar = playerChar;
         }
 
         public int PositionX { get; private set; }
-        public char PlayerChar { get; private set; }
         public int PositionY { get; private set; }
+        
+        public char PlayerChar { get; private set; }
     }
 
     class Renderer
