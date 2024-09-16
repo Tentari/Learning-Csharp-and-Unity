@@ -5,7 +5,7 @@ class Program
     static void Main(string[] args)
     {
         Player player = new Player("Tentari", 100, 1500);
-            
+             
         player.ShowStats();
 
         Console.ReadKey();
