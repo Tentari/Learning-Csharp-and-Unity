@@ -27,6 +27,6 @@ class Player
 
     public void ShowStats()
     {
-        Console.WriteLine($"Username - {_name}\nHealth - {_hp}\nMoney - {_money}");
+        Console.WriteLine($"Name - {_name}\nHealth - {_hp}\nMoney - {_money}");
     }
 }
