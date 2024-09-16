@@ -25,14 +25,15 @@ class PlayerDatabase
         const string BanPlayerCommand = "2";
         const string UnBanPlayerCommand = "3";
         const string ShowPlayersCommand = "4";
-        const string ExitCommand = "5";
+        const string DeletePlayerCommand = "5";
+        const string ExitCommand = "6";
 
         bool isOpen = true;
 
         while (isOpen)
         {
             Console.WriteLine(
-                $"Enter command number: {AddPlayerCommand} - add new player, {BanPlayerCommand} - ban player, {UnBanPlayerCommand} - unban player,{ShowPlayersCommand} - show players, {ExitCommand} - exit");
+                $"Enter command number: {AddPlayerCommand} - add new player, {BanPlayerCommand} - ban player, {UnBanPlayerCommand} - unban player,{ShowPlayersCommand} - show players, {DeletePlayerCommand} - delete player, {ExitCommand} - exit");
 
             string userInput = Console.ReadLine();
 
@@ -55,7 +56,11 @@ class PlayerDatabase
                 case ShowPlayersCommand:
                     ShowPlayers();
                     break;
-
+                
+                case DeletePlayerCommand:
+                    DeletePlayer();
+                    break;
+                
                 case ExitCommand:
                     isOpen = false;
                     break;
@@ -78,31 +83,28 @@ class PlayerDatabase
     private void BanPlayer()
     {
         ShowPlayers();
-
+        
         Console.WriteLine("Choose which player you want to ban: ");
-
-        if (int.TryParse(Console.ReadLine(), out int userInput) && userInput > 0 && userInput <= _players.Count &&
-            _players[userInput - 1].IsBanned == false)
+        
+        if (TryGetPlayer(out Player player) && player.IsBanned == false)
         {
-            _players[userInput - 1].Ban();
+            player.Ban();
         }
         else
         {
-            Console.WriteLine("Player not found or is already banned.");
+            Console.WriteLine("Player not found or is banned.");
         }
     }
 
     private void UnBanPlayer()
     {
         ShowPlayers();
-
-        Console.WriteLine("Choose which player you want to ban: ");
-
-
-        if (int.TryParse(Console.ReadLine(), out int userInput) && userInput > 0 && userInput <= _players.Count &&
-            _players[userInput - 1].IsBanned)
+        
+        Console.WriteLine("Choose which player you want to unban: ");
+        
+        if (TryGetPlayer(out Player player) && player.IsBanned)
         {
-            _players[userInput - 1].Unban();
+            player.Unban();
         }
         else
         {
@@ -120,6 +122,53 @@ class PlayerDatabase
         if (string.IsNullOrWhiteSpace(userInput) == false)
         {
             _players.Add(new Player(userInput));
+        }
+    }
+
+    private bool TryGetPlayer(out Player player)
+    {
+        Console.WriteLine("Enter player ID");
+        int userInput = ReadInt();
+
+        foreach (Player currentPlayer in _players)
+        {
+            if (currentPlayer.Id == userInput)
+            {
+                player = currentPlayer;
+
+                return true;
+            }
+        }
+        
+        player = null;
+        return false;
+    }
+
+    private int ReadInt()
+    {
+        int number;
+        
+        while (int.TryParse(Console.ReadLine(), out number) == false)
+        {
+            Console.WriteLine("Wrong input, try again");
+            Console.ReadLine();
+        }
+        return number;
+    }
+
+    private void DeletePlayer()
+    {
+        ShowPlayers();
+        
+        Console.WriteLine("Choose which player you want to delete: ");
+        
+        if (TryGetPlayer(out Player player))
+        {
+            _players.Remove(player);
+        }
+        else
+        {
+            Console.WriteLine("Player not found.");
         }
     }
 }
