@@ -107,11 +107,6 @@ class Deck
 
     public Card GiveCard()
     {
-        if (_deck.Count == 0)
-        {
-            Console.WriteLine("No more cards in deck.");
-        }
-
         return _deck.Pop();
     }
 
