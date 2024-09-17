@@ -6,7 +6,7 @@ class Program
     {
         Croupier croupier = new Croupier();
 
-        croupier.StartGame();
+        croupier.Work();
 
         Console.ReadKey();
     }
@@ -23,15 +23,15 @@ class Croupier
         _deck = new Deck();
     }
 
-    public void StartGame()
+    public void Work()
     {
         Console.WriteLine("How many card you need?");
 
         int userInput = ReadInt();
 
-        while (userInput > _deck.CardCount || userInput < 0)
+        while (userInput > _deck.CardsCount || userInput < 0)
         {
-            Console.WriteLine($"We have only {_deck.CardCount} cards.");
+            Console.WriteLine($"We have only {_deck.CardsCount} cards.");
             userInput = ReadInt();
         }
 
@@ -44,7 +44,7 @@ class Croupier
     {
         for (int i = 0; i < amount; i++)
         {
-            _player.GetCard(_deck.GiveCard());
+            _player.TakeCard(_deck.GiveCard());
         }
     }
 
@@ -87,7 +87,7 @@ class Player
         }
     }
 
-    public void GetCard(Card card)
+    public void TakeCard(Card card)
     {
         _hand.Add(card);
     }
@@ -95,30 +95,27 @@ class Player
 
 class Deck
 {
-    private Stack<Card> _deck;
+    private Stack<Card> _cards = new Stack<Card>();
 
     public Deck()
     {
-        CardCount = 60;
-        _deck = FillDeck();
+        CardsCount = 60;
+        FillDeck();
     }
 
-    public int CardCount { get; private set; }
+    public int CardsCount { get; private set; }
 
     public Card GiveCard()
     {
-        return _deck.Pop();
+        return _cards.Pop();
     }
 
-    private Stack<Card> FillDeck()
+    private void FillDeck()
     {
-        _deck = new Stack<Card>();
-        for (int i = 0; i < CardCount; i++)
+        for (int i = 0; i < CardsCount; i++)
         {
-            _deck.Push(new Card());
+            _cards.Push(new Card());
         }
-
-        return _deck;
     }
 }
 
@@ -128,7 +125,10 @@ class Card
 
     public Card()
     {
-        Power = s_random.Next(1, 10 + 1);
+        int minRandomValue = 1;
+        int maxRandomValue = 10;
+        
+        Power = s_random.Next(minRandomValue, maxRandomValue + 1);
     }
 
     public int Power { get; private set; }
