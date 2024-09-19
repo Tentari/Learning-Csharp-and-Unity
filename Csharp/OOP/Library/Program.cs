@@ -131,7 +131,10 @@ class BookShelve
 
     public void ShowBooksByParameter()
     {
-        Console.WriteLine("Search by author(1) or title(2) ?");
+        int authorChoice = 1;
+        int titleChoice = 2;
+        
+        Console.WriteLine($"Search by author({authorChoice}) or title({titleChoice}) ?");
 
         if (int.TryParse(Console.ReadLine(), out int userChoice))
         {
@@ -142,8 +145,8 @@ class BookShelve
 
             foreach (Book book in _books)
             {
-                if (userChoice == 1 && book.Author.ToLower().Contains(userParameterInput) ||
-                    userChoice == 2 && book.Title.ToLower().Contains(userParameterInput))
+                if (userChoice == authorChoice && book.Author.ToLower().Contains(userParameterInput) ||
+                    userChoice == titleChoice && book.Title.ToLower().Contains(userParameterInput))
                 {
                     book.ShowBook();
                     isFound = true;
