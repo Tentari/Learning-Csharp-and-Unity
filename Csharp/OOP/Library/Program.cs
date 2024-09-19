@@ -4,21 +4,21 @@ class Program
 {
     static void Main(string[] args)
     {
-        Library library = new Library();
+        BookShelve bookShelve = new BookShelve();
 
-        library.Work();
+        bookShelve.Work();
 
         Console.ReadKey();
     }
 }
 
-class Library
+class BookShelve
 {
-    private BookShelve _bookShelve;
+    private List<Book> _books;
 
-    public Library()
+    public BookShelve()
     {
-        _bookShelve = new BookShelve();
+        _books = new List<Book>();
     }
 
     public void Work()
@@ -42,20 +42,20 @@ class Library
             switch (userCommandInput)
             {
                 case AddBookCommand:
-                    _bookShelve.AddBook(ReadYear());
+                    AddBook(ReadYear());
                     break;
 
                 case RemoveBookCommand:
-                    _bookShelve.ShowBooks();
-                    _bookShelve.RemoveBook(ReadIdex());
+                    ShowBooks();
+                    RemoveBook(ReadIndex());
                     break;
 
                 case ShowBooksCommand:
-                    _bookShelve.ShowBooks();
+                    ShowBooks();
                     break;
 
                 case ShowBooksByParameterCommand:
-                    _bookShelve.ShowBooksByParameter();
+                    SearchBooksByParameter();
                     break;
 
                 case ExitCommand:
@@ -87,23 +87,13 @@ class Library
         return ReadInt();
     }
 
-    private int ReadIdex()
+    private int ReadIndex()
     {
-        Console.WriteLine("Idex: ");
+        Console.WriteLine("Index: ");
         return ReadInt();
     }
-}
 
-class BookShelve
-{
-    private List<Book> _books;
-
-    public BookShelve()
-    {
-        _books = new List<Book>();
-    }
-
-    public void AddBook(int year)
+    private void AddBook(int year)
     {
         Console.WriteLine("Author: ");
         string author = Console.ReadLine();
@@ -116,12 +106,19 @@ class BookShelve
         Console.WriteLine($"{author} - {title} {year} was added.");
     }
 
-    public void RemoveBook(int idex)
+    private void RemoveBook(int index)
     {
-        _books.RemoveAt(idex - 1);
+        if (index > _books.Count || index < 1)
+        {
+            Console.WriteLine("Bad input.");
+        }
+        else
+        {
+            _books.RemoveAt(index - 1);
+        }
     }
 
-    public void ShowBooks()
+    private void ShowBooks()
     {
         foreach (Book book in _books)
         {
@@ -129,38 +126,71 @@ class BookShelve
         }
     }
 
-    public void ShowBooksByParameter()
+    private void SearchBooksByParameter()
     {
         int authorChoice = 1;
         int titleChoice = 2;
-        
+
         Console.WriteLine($"Search by author({authorChoice}) or title({titleChoice}) ?");
 
         if (int.TryParse(Console.ReadLine(), out int userChoice))
         {
-            Console.WriteLine("Enter parameter: ");
-            string userParameterInput = Console.ReadLine().ToLower();
-
-            bool isFound = false;
-
-            foreach (Book book in _books)
+            if (userChoice == authorChoice)
             {
-                if (userChoice == authorChoice && book.Author.ToLower().Contains(userParameterInput) ||
-                    userChoice == titleChoice && book.Title.ToLower().Contains(userParameterInput))
-                {
-                    book.ShowBook();
-                    isFound = true;
-                }
+                ShowBooksByAuthor();
             }
-
-            if (isFound == false)
+            else if (userChoice == titleChoice)
             {
-                Console.WriteLine("Not found.");
+                ShowBooksByTitle();
+            }
+            else
+            {
+                Console.WriteLine("Wrong input");
             }
         }
-        else
+    }
+
+    private void ShowBooksByAuthor()
+    {
+        Console.WriteLine("Enter parameter: ");
+        string userAuthorInput = Console.ReadLine().ToLower();
+
+        bool isFound = false;
+
+        foreach (Book book in _books)
         {
-            Console.WriteLine("Wrong input.");
+            if (book.Author.ToLower().Contains(userAuthorInput))
+            {
+                book.ShowBook();
+                isFound = true;
+            }
+        }
+
+        if (isFound == false)
+        {
+            Console.WriteLine("Not found.");
+        }
+    }
+
+    private void ShowBooksByTitle()
+    {
+        Console.WriteLine("Enter parameter: ");
+        string userParameterInput = Console.ReadLine().ToLower();
+
+        bool isFound = false;
+
+        foreach (Book book in _books)
+        {
+            if (book.Title.ToLower().Contains(userParameterInput))
+            {
+                book.ShowBook();
+                isFound = true;
+            }
+        }
+
+        if (isFound == false)
+        {
+            Console.WriteLine("Not found.");
         }
     }
 }
