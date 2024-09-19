@@ -29,7 +29,7 @@ class Croupier
         Console.WriteLine("Hello player, tell us how many cards you need?");
         int cardsRequested = ReadInt();
 
-        while (cardsRequested > _freshDeck.CardCount || cardsRequested < 1)
+        while (cardsRequested > _freshDeck.CardsCount || cardsRequested < 1)
         {
             if (cardsRequested < 1)
             {
@@ -37,7 +37,7 @@ class Croupier
             }
             else
             {
-                Console.WriteLine($"We have only {_freshDeck.CardCount} cards.");
+                Console.WriteLine($"We have only {_freshDeck.CardsCount} cards.");
             }
 
             cardsRequested = ReadInt();
@@ -52,7 +52,7 @@ class Croupier
     {
         for (int i = 0; i < amount; i++)
         {
-            _player.TakeCard(_freshDeck.GetCard());
+            _player.TakeCard(_freshDeck.GiveCard());
         }
     }
 
@@ -104,18 +104,18 @@ class Deck
     {
         _cards = new List<Card>();
         GenerateCards();
-        CardCount = _cards.Count;
+        CardsCount = _cards.Count;
     }
 
-    public int CardCount { get; private set; }
+    public int CardsCount { get; private set; }
 
-    public Card GetCard()
+    public Card GiveCard()
     {
         int firstCard = 0;
 
         Card card = _cards[firstCard];
         _cards.RemoveAt(firstCard);
-        CardCount--;
+        CardsCount--;
 
         return card;
     }
