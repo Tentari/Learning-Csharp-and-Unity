@@ -14,37 +14,45 @@ class Program
 
 class Croupier
 {
-    private Deck _deck;
+    private Deck _freshDeck;
     private Player _player;
 
     public Croupier()
     {
         _player = new Player();
-        _deck = new Deck();
+        _freshDeck = new Deck();
+        _freshDeck.ShuffleCards();
     }
 
     public void Work()
     {
-        Console.WriteLine("How many card you need?");
+        Console.WriteLine("Hello player, tell us how many cards you need?");
+        int cardsRequested = ReadInt();
 
-        int userInput = ReadInt();
-
-        while (userInput > _deck.CardsCount || userInput < 0)
+        while (cardsRequested > _freshDeck.CardCount || cardsRequested < 1)
         {
-            Console.WriteLine($"We have only {_deck.CardsCount} cards.");
-            userInput = ReadInt();
+            if (cardsRequested < 1)
+            {
+                Console.WriteLine("You need atleast one card.");
+            }
+            else
+            {
+                Console.WriteLine($"We have only {_freshDeck.CardCount} cards.");
+            }
+
+            cardsRequested = ReadInt();
         }
 
-        GivePlayerCards(userInput);
+        GiveCardsToPlayer(cardsRequested);
 
         _player.ShowHand();
     }
 
-    private void GivePlayerCards(int amount)
+    private void GiveCardsToPlayer(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            _player.TakeCard(_deck.GiveCard());
+            _player.TakeCard(_freshDeck.GetCard());
         }
     }
 
@@ -54,7 +62,7 @@ class Croupier
 
         while (int.TryParse(Console.ReadLine(), out number) == false)
         {
-            Console.WriteLine("Wrong number, try again.");
+            Console.WriteLine("Invalid input. Please enter a valid number.");
         }
 
         return number;
@@ -70,66 +78,86 @@ class Player
         _hand = new List<Card>();
     }
 
-    public void ShowHand()
-    {
-        if (_hand.Count == 0)
-        {
-            Console.WriteLine("Sad, you have no cards.");
-        }
-        else
-        {
-            foreach (Card card in _hand)
-            {
-                Console.Write($"{card.Power} ");
-            }
-
-            Console.Write("- Are my cards.\n");
-        }
-    }
-
     public void TakeCard(Card card)
     {
         _hand.Add(card);
+    }
+
+    public void ShowHand()
+    {
+        int cardNumbering = 1;
+        Console.WriteLine("My hand is :");
+
+        foreach (Card card in _hand)
+        {
+            Console.WriteLine($"{cardNumbering}. {card.Name} of {card.Suit}");
+            cardNumbering++;
+        }
     }
 }
 
 class Deck
 {
-    private Stack<Card> _cards = new Stack<Card>();
+    private List<Card> _cards;
 
     public Deck()
     {
-        CardsCount = 60;
-        FillDeck();
+        _cards = new List<Card>();
+        GenerateCards();
+        CardCount = _cards.Count;
     }
 
-    public int CardsCount { get; private set; }
+    public int CardCount { get; private set; }
 
-    public Card GiveCard()
+    public Card GetCard()
     {
-        return _cards.Pop();
+        int firstCard = 0;
+
+        Card card = _cards[firstCard];
+        _cards.RemoveAt(firstCard);
+        CardCount--;
+
+        return card;
     }
 
-    private void FillDeck()
+    private void GenerateCards()
     {
-        for (int i = 0; i < CardsCount; i++)
+        List<string> cardName = new List<string>
+            { "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace" };
+        List<string> cardSuit = new List<string> { "Spade", "Club", "Heart", "Diamond" };
+
+        foreach (string suit in cardSuit)
         {
-            _cards.Push(new Card());
+            for (int i = 0; i < cardName.Count; i++)
+            {
+                _cards.Add(new Card(cardName[i], suit));
+            }
+        }
+    }
+
+    public void ShuffleCards()
+    {
+        Random random = new Random();
+
+        for (int i = 0; i < _cards.Count - 1; i++)
+        {
+            int randomNumber = random.Next(i, _cards.Count);
+
+            Card tempCard = _cards[i];
+            _cards[i] = _cards[randomNumber];
+            _cards[randomNumber] = tempCard;
         }
     }
 }
 
 class Card
 {
-    static private Random s_random = new Random();
-
-    public Card()
+    public Card(string name, string suit)
     {
-        int minRandomValue = 1;
-        int maxRandomValue = 10;
-        
-        Power = s_random.Next(minRandomValue, maxRandomValue + 1);
+        Name = name;
+        Suit = suit;
     }
 
-    public int Power { get; private set; }
+    public string Name { get; private set; }
+    public string Suit { get; private set; }
 }
