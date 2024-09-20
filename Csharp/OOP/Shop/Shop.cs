@@ -26,147 +26,162 @@ class Shop
 
     public void Work()
     {
-        const int SellCommand = 1;
-        const int ShowProducts = 2;
-        const int ShowBuyerInventory = 3;
+        const int SellItemCommand = 1;
+        const int ShowAllGoodsCommand = 2;
+        const int ShowBuyersInventory = 3;
         const int ExitCommand = 4;
 
-        bool IsRunning = true;
+        bool isOpen = true;
 
-        while (IsRunning)
+        while (isOpen)
         {
-            Console.WriteLine($"\nYour money - {seller.Money}. Buyer's money - {buyer.Money}.\n");
-
             Console.WriteLine(
-                $"\n{SellCommand} - Sell item.\n{ShowProducts} - Show products.\n{ShowBuyerInventory} - Show buyer's inventory.\n{ExitCommand} - Exit. ");
-            int userInput = ReadInt();
+                $"\n{SellItemCommand} - Sell item\n{ShowAllGoodsCommand} - Show all goods\n{ShowBuyersInventory} - Show buyers inventory\n{ExitCommand} - Exit");
+            int userInput = ConsoleUtils.ReadInt();
+
             Console.Clear();
 
             switch (userInput)
             {
-                case SellCommand:
-                    SellItem();
+                case SellItemCommand:
+                    CompleteSellTransaction();
                     break;
 
-                case ShowProducts:
-                    ShowItems(seller);
+                case ShowAllGoodsCommand:
+                    seller.ShowItems();
                     break;
 
-                case ShowBuyerInventory:
-                    ShowItems(buyer);
+                case ShowBuyersInventory:
+                    buyer.ShowItems();
                     break;
 
                 case ExitCommand:
-                    IsRunning = false;
+                    isOpen = false;
                     break;
 
                 default:
-                    Console.WriteLine("Invalid command. Please try again.");
+                    Console.WriteLine("Invalid input.");
                     break;
             }
         }
     }
 
-    private void ShowItems(NPC npc)
+    private void CompleteSellTransaction()
+    {
+        seller.ShowItems();
+
+        if (seller.TryGetItem(out Item item))
+        {
+            if (buyer.CanPay(item.Price))
+            {
+                seller.SellItem(item);
+                buyer.BuyItem(item);
+
+                Console.WriteLine("Item sold. Thank you.");
+            }
+            else
+            {
+                Console.WriteLine("Not enough gold.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Item not found.");
+        }
+    }
+
+    private void GenerateItems()
+    {
+        seller.AddItem("Laptop", 1000);
+        seller.AddItem("Phone", 500);
+        seller.AddItem("Tablet", 700);
+        seller.AddItem("Mouse", 50);
+        seller.AddItem("Keyboard", 100);
+    }
+}
+
+class Human
+{
+    protected List<Item> Items;
+
+    public Human(int gold)
+    {
+        Gold = gold;
+        Items = new List<Item>();
+    }
+
+    public int Gold { get; protected set; }
+
+    public void ShowItems()
     {
         int itemsNumbering = 1;
 
-        if (npc.Items.Count > 0)
+        if (Items.Count > 0)
         {
-            foreach (Item item in npc.Items)
+            foreach (Item item in Items)
             {
                 Console.Write(itemsNumbering++ + ".");
                 item.ShowInfo();
             }
+
+            Console.WriteLine($"Gold: {Gold}");
         }
         else
         {
             Console.WriteLine("It's empty.");
         }
     }
-
-    private int ReadInt()
-    {
-        int number;
-
-        while (int.TryParse(Console.ReadLine(), out number) == false)
-        {
-            Console.WriteLine("Invalid input. Please enter a valid number.");
-        }
-
-        return number;
-    }
-
-    private void SellItem()
-    {
-        ShowItems(seller);
-
-        Console.WriteLine("Enter index of item you want to sell: ");
-        int index = ReadInt() - 1;
-
-        if (index > -1 && index < seller.Items.Count)
-        {
-            if (buyer.Money >= seller.Items[index].Price)
-            {
-                Item item = seller.Items[index];
-
-                seller.SellItem(item);
-                buyer.BuyItem(item);
-
-                Console.WriteLine("You sold " + item.Name);
-            }
-            else
-            {
-                Console.WriteLine("Buyer don't have enough money");
-            }
-        }
-        else
-        {
-            Console.WriteLine("Wrong index");
-        }
-    }
-
-    private void GenerateItems()
-    {
-        seller.Items.Add(new Item("Laptop", 1000));
-        seller.Items.Add(new Item("Phone", 500));
-        seller.Items.Add(new Item("Tablet", 700));
-        seller.Items.Add(new Item("Mouse", 50));
-        seller.Items.Add(new Item("Keyboard", 100));
-    }
 }
 
-class NPC
+class Seller : Human
 {
-    public NPC(int money)
+    public Seller(int gold = 50) : base(gold)
     {
-        Money = money;
-        Items = new List<Item>();
     }
 
-    public List<Item> Items { get; private set; }
-    public int Money { get; protected set; }
-}
+    public bool TryGetItem(out Item item)
+    {
+        Console.WriteLine("Please choose product by number.");
 
-class Seller : NPC
-{
-    public Seller(int money = 50) : base(money) { }
+        int userInput = ConsoleUtils.ReadInt();
+
+        if (userInput <= Items.Count && userInput > 0)
+        {
+            item = Items[userInput - 1];
+            return true;
+        }
+
+        item = null;
+        return false;
+    }
 
     public void SellItem(Item item)
     {
-        Money += item.Price;
+        Gold += item.Price;
         Items.Remove(item);
+    }
+
+    public void AddItem(string name, int price)
+    {
+        Items.Add(new Item(name, price));
     }
 }
 
-class Buyer : NPC
+class Buyer : Human
 {
-    public Buyer(int money = 500) : base(money) { }
+    public Buyer(int gold = 500) : base(gold)
+    {
+    }
 
     public void BuyItem(Item item)
     {
-        Money -= item.Price;
+        Gold -= item.Price;
         Items.Add(item);
+    }
+
+    public bool CanPay(int price)
+    {
+        return Gold >= price;
     }
 }
 
@@ -184,5 +199,20 @@ class Item
     public void ShowInfo()
     {
         Console.WriteLine($"{Name} - {Price} gold.");
+    }
+}
+
+public class ConsoleUtils
+{
+    public static int ReadInt()
+    {
+        int number;
+
+        while (int.TryParse(Console.ReadLine(), out number) == false)
+        {
+            Console.WriteLine("Invalid input. Please enter a valid number.");
+        }
+
+        return number;
     }
 }

@@ -13,3 +13,7 @@ C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Shop\ob
 C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Shop\obj\Debug\net8.0\Shop.pdb
 C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Shop\obj\Debug\net8.0\Shop.genruntimeconfig.cache
 C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Shop\obj\Debug\net8.0\ref\Shop.dll
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Shop\bin\Debug\net8.0\Utils.dll
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Shop\bin\Debug\net8.0\Utils.pdb
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Shop\obj\Debug\net8.0\Shop.csproj.AssemblyReference.cache
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Shop\obj\Debug\net8.0\Shop.csproj.Up2Date
