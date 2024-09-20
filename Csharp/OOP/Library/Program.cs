@@ -4,21 +4,21 @@ class Program
 {
     static void Main(string[] args)
     {
-        BookShelve bookShelve = new BookShelve();
+        Library library = new Library();
 
-        bookShelve.Work();
+        library.Work();
 
         Console.ReadKey();
     }
 }
 
-class BookShelve
+class Library
 {
-    private List<Book> _collection;
+    private List<Book> _books;
 
-    public BookShelve()
+    public Library()
     {
-        _collection = new List<Book>();
+        _books = new List<Book>();
     }
 
     public void Work()
@@ -42,16 +42,16 @@ class BookShelve
             switch (userCommandInput)
             {
                 case AddCommand:
-                    AddItem();
+                    AddBook();
                     break;
 
                 case RemoveCommand:
-                    ShowAll();
-                    RemoveItem(ReadIndex());
+                    ShowAllBooks();
+                    RemoveBook(ReadIndex());
                     break;
 
                 case ShowCommand:
-                    ShowAll();
+                    ShowAllBooks();
                     break;
 
                 case ShowByParameterCommand:
@@ -87,7 +87,7 @@ class BookShelve
         return ReadInt();
     }
 
-    private void AddItem()
+    private void AddBook()
     {
         Console.WriteLine("Author: ");
         string author = Console.ReadLine();
@@ -98,26 +98,26 @@ class BookShelve
         Console.WriteLine("Years:");
         int year = ReadInt();
 
-        _collection.Add(new Book(author, title, year));
+        _books.Add(new Book(author, title, year));
 
         Console.WriteLine($"{author} - {title} {year} was added.");
     }
 
-    private void RemoveItem(int index)
+    private void RemoveBook(int index)
     {
-        if (index > _collection.Count || index < 1)
+        if (index > _books.Count || index < 1)
         {
             Console.WriteLine("Bad input.");
         }
         else
         {
-            _collection.RemoveAt(index - 1);
+            _books.RemoveAt(index - 1);
         }
     }
 
-    private void ShowAll()
+    private void ShowAllBooks()
     {
-        foreach (Book book in _collection)
+        foreach (Book book in _books)
         {
             book.ShowInfo();
         }
@@ -161,7 +161,7 @@ class BookShelve
 
         bool isFound = false;
 
-        foreach (Book book in _collection)
+        foreach (Book book in _books)
         {
             if (book.Author.ToLower().Contains(userAuthorInput))
             {
@@ -183,7 +183,7 @@ class BookShelve
 
         bool isFound = false;
 
-        foreach (Book book in _collection)
+        foreach (Book book in _books)
         {
             if (book.Year == userParameterInput)
             {
@@ -205,7 +205,7 @@ class BookShelve
 
         bool isFound = false;
 
-        foreach (Book book in _collection)
+        foreach (Book book in _books)
         {
             if (book.Title.ToLower().Contains(userParameterInput))
             {
