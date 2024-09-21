@@ -12,16 +12,16 @@ class Program
     }
 }
 
-class Shop
+public class Shop
 {
-    Buyer buyer;
-    Seller seller;
+    private Buyer _buyer;
+    private Seller _seller;
 
     public Shop()
     {
-        seller = new Seller();
+        _seller = new Seller();
         GenerateItems();
-        buyer = new Buyer();
+        _buyer = new Buyer();
     }
 
     public void Work()
@@ -48,11 +48,11 @@ class Shop
                     break;
 
                 case ShowAllGoodsCommand:
-                    seller.ShowItems();
+                    _seller.ShowItems();
                     break;
 
                 case ShowBuyersInventory:
-                    buyer.ShowItems();
+                    _buyer.ShowItems();
                     break;
 
                 case ExitCommand:
@@ -68,14 +68,14 @@ class Shop
 
     private void CompleteSellTransaction()
     {
-        seller.ShowItems();
+        _seller.ShowItems();
 
-        if (seller.TryGetItem(out Item item))
+        if (_seller.TryGetItem(out Item item))
         {
-            if (buyer.CanPay(item.Price))
+            if (_buyer.CanPay(item.Price))
             {
-                seller.SellItem(item);
-                buyer.BuyItem(item);
+                _seller.SellItem(item);
+                _buyer.BuyItem(item);
 
                 Console.WriteLine("Item sold. Thank you.");
             }
@@ -92,15 +92,15 @@ class Shop
 
     private void GenerateItems()
     {
-        seller.AddItem("Laptop", 1000);
-        seller.AddItem("Phone", 500);
-        seller.AddItem("Tablet", 700);
-        seller.AddItem("Mouse", 50);
-        seller.AddItem("Keyboard", 100);
+        _seller.AddItem("Laptop", 1000);
+        _seller.AddItem("Phone", 500);
+        _seller.AddItem("Tablet", 700);
+        _seller.AddItem("Mouse", 50);
+        _seller.AddItem("Keyboard", 100);
     }
 }
 
-class Human
+public class Human
 {
     protected List<Item> Items;
 
@@ -133,7 +133,7 @@ class Human
     }
 }
 
-class Seller : Human
+public class Seller : Human
 {
     public Seller(int gold = 50) : base(gold)
     {
@@ -167,7 +167,7 @@ class Seller : Human
     }
 }
 
-class Buyer : Human
+public class Buyer : Human
 {
     public Buyer(int gold = 500) : base(gold)
     {
@@ -185,20 +185,21 @@ class Buyer : Human
     }
 }
 
-class Item
+public class Item
 {
+    private string _name;
+    
     public Item(string name, int price)
     {
-        Name = name;
+        _name = name;
         Price = price;
     }
-
-    public string Name;
-    public int Price;
+    
+    public int Price { get; private set; }
 
     public void ShowInfo()
     {
-        Console.WriteLine($"{Name} - {Price} gold.");
+        Console.WriteLine($"{_name} - {Price} gold.");
     }
 }
 
