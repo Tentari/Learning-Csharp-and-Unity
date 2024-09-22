@@ -14,7 +14,7 @@ class Program
 
 public class Dispatcher
 {
-    private static Random _random = new Random();
+    private static Random s_random = new Random();
 
     private List<Train> _trains;
 
@@ -59,7 +59,6 @@ public class Dispatcher
             }
         }
     }
-
 
     public void CreateTrain()
     {
