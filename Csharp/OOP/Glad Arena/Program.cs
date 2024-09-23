@@ -32,7 +32,6 @@ public class Arena
         Console.Clear();
         Fight();
 
-
         WinnerMessage();
     }
 
