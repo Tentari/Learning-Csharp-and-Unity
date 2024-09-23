@@ -15,6 +15,7 @@ class Program
 public class Arena
 {
     private List<Gladiator> _allGladiators;
+    
     private Gladiator _firstGladiator;
     private Gladiator _secondGladiator;
 
