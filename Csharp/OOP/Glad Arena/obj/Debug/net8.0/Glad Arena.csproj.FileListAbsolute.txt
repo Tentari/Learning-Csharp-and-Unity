@@ -1,0 +1,15 @@
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\bin\Debug\net8.0\Glad Arena.exe
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\bin\Debug\net8.0\Glad Arena.deps.json
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\bin\Debug\net8.0\Glad Arena.runtimeconfig.json
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\bin\Debug\net8.0\Glad Arena.dll
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\bin\Debug\net8.0\Glad Arena.pdb
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\Glad Arena.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\Glad Arena.AssemblyInfoInputs.cache
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\Glad Arena.AssemblyInfo.cs
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\Glad Arena.csproj.CoreCompileInputs.cache
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\Glad Arena.sourcelink.json
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\Glad Arena.dll
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\refint\Glad Arena.dll
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\Glad Arena.pdb
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\Glad Arena.genruntimeconfig.cache
+C:\Users\renat\Desktop\GIT\Projects\Learning-Csharp-and-Unity\Csharp\OOP\Glad Arena\obj\Debug\net8.0\ref\Glad Arena.dll
