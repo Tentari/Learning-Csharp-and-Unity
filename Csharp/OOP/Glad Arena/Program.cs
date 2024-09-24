@@ -216,10 +216,10 @@ public class Tyyr : Gladiator
     {
         Gladiator enemy = gladiator;
 
+        base.Attack(enemy);
+        
         if (_attackCount == _maxAttackCount)
         {
-            base.Attack(enemy);
-
             Console.WriteLine($"Double attack!");
 
             base.Attack(enemy);
@@ -228,8 +228,6 @@ public class Tyyr : Gladiator
         }
         else
         {
-            base.Attack(enemy);
-
             _attackCount++;
         }
     }
