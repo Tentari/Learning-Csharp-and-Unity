@@ -228,7 +228,7 @@ public class Tyyr : Gladiator
         }
         else
         {
-            base.Attack(gladiator);
+            base.Attack(enemy);
 
             _attackCount++;
         }
