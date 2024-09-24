@@ -12,6 +12,8 @@ class Program
 
 public class Shop
 {
+    private Client _client;
+
     private int _profit;
 
     private Queue<Client> _clients;
@@ -22,18 +24,17 @@ public class Shop
     {
         GenerateItems();
 
-        _clients = new Queue<Client>();
+        _clients = FillClients();
 
         _profit = 0;
     }
 
     public void Work()
     {
-        bool isOpen = true;
-
-        while (isOpen)
+        while (_clients.Count > 0)
         {
-            GenerateClient();
+            _client = _clients.Dequeue();
+
             ShowClientInfo();
 
             if (CanPay())
@@ -43,7 +44,7 @@ public class Shop
             else
             {
                 Console.WriteLine("Not enough money. I will remove random item from cart.");
-                _clients.Peek().Cart.RemoveItem();
+                _client.RemoveItem();
             }
 
             Console.WriteLine($"\nShop profit: {_profit}");
@@ -57,13 +58,12 @@ public class Shop
     private void SellItems()
     {
         GiveItemsToCustomer();
-        _profit += _clients.Peek().Cart.SumOfItems();
-        _clients.Dequeue();
+        _profit += _client.SumOfCart;
     }
 
     private void GiveItemsToCustomer()
     {
-        _clients.Peek().FillBag();
+        _client.FillBag();
     }
 
     private void GenerateItems()
@@ -88,7 +88,7 @@ public class Shop
         };
     }
 
-    private void GenerateClient()
+    private Client GenerateClient()
     {
         int maxCartCount = 5;
         int minCartCount = 1;
@@ -101,24 +101,33 @@ public class Shop
             client.InsertItemIntoCart(_items[ConsoleUtils.GetRandomnNumber(0, _items.Count - 1)]);
         }
 
-        _clients.Enqueue(client);
+        return client;
+    }
+
+    private Queue<Client> FillClients()
+    {
+        Queue<Client> clients = new Queue<Client>();
+
+        int clientCount = 5;
+
+        for (int i = 0; i < clientCount; i++)
+        {
+            clients.Enqueue(GenerateClient());
+        }
+
+        return clients;
     }
 
     private void ShowClientInfo()
     {
-        _clients.Peek().ShowCart();
+        _client.ShowCart();
 
-        Console.WriteLine($"I have {_clients.Peek().Money} money.");
+        Console.WriteLine($"I have {_client.Money} money.");
     }
 
     private bool CanPay()
     {
-        if (_clients.Peek().Money >= _clients.Peek().Cart.SumOfItems())
-        {
-            return true;
-        }
-
-        return false;
+        return _client.Money >= _client.SumOfCart;
     }
 }
 
@@ -127,56 +136,65 @@ public class Client
     private int _minMoney = 200;
     private int _maxMoney = 500;
 
+    private Inventory _cart;
+
+    private Inventory _bag;
+
     public Client()
     {
-        Bag = new Inventory();
-        Cart = new Inventory();
+        _bag = new Inventory();
+        _cart = new Inventory();
 
         Money = ConsoleUtils.GetRandomnNumber(_minMoney, _maxMoney + 1);
     }
 
-    public Inventory Bag { get; private set; }
-
-    public Inventory Cart { get; private set; }
+    public int SumOfCart => _cart.SumOfItems();
 
     public int Money { get; private set; }
 
     public void InsertItemIntoCart(Item item)
     {
-        Cart.AddItem(item);
+        _cart.AddItem(item);
     }
 
     public void ShowCart()
     {
-        Cart.ShowItems();
+        _cart.ShowItems();
     }
 
     public void FillBag()
     {
-        foreach (Item item in Cart.Items)
+        foreach (Item item in _cart.Items)
         {
-            Bag.AddItem(item);
+            _bag.AddItem(item);
         }
+    }
+
+    public void RemoveItem()
+    {
+        _cart.RemoveItem();
     }
 }
 
 public class Inventory
 {
+    private readonly List<Item> _items;
+
     public Inventory()
     {
-        Items = new List<Item>();
+        _items = new List<Item>();
     }
 
-    public List<Item> Items { get; private set; }
+    public List<Item> Items => _items.ToList();
 
     public void AddItem(Item item)
     {
-        Items.Add(item);
+        _items.Add(item);
     }
 
     public void ShowItems()
     {
-        foreach (Item item in Items)
+        foreach (Item item in _items)
         {
             item.ShowInfo();
         }
@@ -188,7 +206,7 @@ public class Inventory
     {
         int totalCartSum = 0;
 
-        foreach (Item item in Items)
+        foreach (Item item in _items)
         {
             totalCartSum += item.Price;
         }
@@ -198,14 +216,21 @@ public class Inventory
 
     public void RemoveItem()
     {
-        Items.RemoveAt(ConsoleUtils.GetRandomnNumber(0, Items.Count - 1));
+        _items.RemoveAt(ConsoleUtils.GetRandomnNumber(0, _items.Count - 1));
+    }
+
+    public void FillBag()
+    {
+        foreach (Item item in _items)
+        {
+            _items.Add(item);
+        }
     }
 }
 
 public class Item
 {
     private string _name;
-
 
     public Item(string name, int price)
     {
