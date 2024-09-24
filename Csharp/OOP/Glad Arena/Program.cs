@@ -222,7 +222,7 @@ public class Tyyr : Gladiator
 
             Console.WriteLine($"Double attack!");
 
-            base.Attack(gladiator);
+            base.Attack(enemy);
 
             _attackCount = 0;
         }
