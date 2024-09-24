@@ -219,15 +219,6 @@ public class Inventory
         _items.RemoveAt(ConsoleUtils.GetRandomnNumber(0, _items.Count - 1));
     }
 
-    public void FillBag()
-    {
-        foreach (Item item in _items)
-        {
-            _items.Add(item);
-        }
-    }
-}
-
 public class Item
 {
     private string _name;
