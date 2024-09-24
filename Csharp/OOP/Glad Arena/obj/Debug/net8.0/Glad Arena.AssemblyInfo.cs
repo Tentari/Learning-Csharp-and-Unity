@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Glad Arena")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+65e22ebd7c05ec378d3dee15f285b560bf71e451")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+210b939168823644604e81b118da20535d83c909")]
 [assembly: System.Reflection.AssemblyProductAttribute("Glad Arena")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Glad Arena")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

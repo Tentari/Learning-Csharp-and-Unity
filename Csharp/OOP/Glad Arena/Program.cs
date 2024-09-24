@@ -15,7 +15,7 @@ class Program
 public class Arena
 {
     private List<Gladiator> _allGladiators;
-    
+
     private Gladiator _firstGladiator;
     private Gladiator _secondGladiator;
 
@@ -37,20 +37,15 @@ public class Arena
 
     private void Fight()
     {
-        int damageDoneFirst;
-        int damageDoneSecond;
+        int firstGladiatorHealth = _firstGladiator.Health;
+        int secondGladiatorDamage;
 
         while (_firstGladiator.Health > 0 && _secondGladiator.Health > 0)
         {
-            _firstGladiator.Attack(_secondGladiator, out damageDoneFirst);
+            _firstGladiator.Attack(_secondGladiator);
 
-            _secondGladiator.Attack(_firstGladiator, out damageDoneSecond);
 
-            Console.WriteLine(
-                $"{_firstGladiator.Name} attacks {_secondGladiator.Name} for {damageDoneFirst} DMG");
-
-            Console.WriteLine(
-                $"{_secondGladiator.Name} attacks {_firstGladiator.Name} for {damageDoneSecond} DMG");
+            _secondGladiator.Attack(_firstGladiator);
 
             Console.WriteLine(
                 $"First gladiator({_firstGladiator.Name}) HP:{_firstGladiator.Health} Second gladiator({_secondGladiator.Name}) HP:{_secondGladiator.Health}\n");
@@ -104,6 +99,8 @@ public class Arena
             else
             {
                 Console.WriteLine("Invalid input. Please enter a valid number.");
+
+                index = ConsoleUtils.ReadInt() - 1;
             }
         }
 
@@ -152,14 +149,19 @@ public abstract class Gladiator
         }
     }
 
-    public virtual void Attack(Gladiator gladiator, out int damageDone)
+    public virtual void Attack(Gladiator gladiator)
     {
-        damageDone = Damage;
-
         gladiator.TakeDamage(Damage);
+
+        DrawDamageDone(gladiator);
     }
 
     public abstract Gladiator Clone();
+
+    public void DrawDamageDone(Gladiator gladiator)
+    {
+        Console.WriteLine($"{Name} attacks {gladiator.Name} for {Damage}");
+    }
 }
 
 public class Fighter : Gladiator
@@ -170,39 +172,27 @@ public class Fighter : Gladiator
     {
     }
 
-    public override void Attack(Gladiator gladiator, out int damageDone)
+    public override void Attack(Gladiator gladiator)
     {
-        damageDone = Damage;
+        Gladiator enemy = gladiator;
 
+        int minCritChance = 30;
         int tempDamage = Damage;
 
-        if (IsCritical())
+        if (ConsoleUtils.RoolChance(minCritChance))
         {
-            Console.WriteLine("Critical hit!");
-
             Damage *= 2;
 
-            base.Attack(gladiator, out damageDone);
+            Console.WriteLine("Critical hit!");
+
+            base.Attack(enemy);
+
+            Damage = tempDamage;
         }
         else
         {
-            base.Attack(gladiator, out damageDone);
+            base.Attack(enemy);
         }
-
-        Damage = tempDamage;
-    }
-
-    private bool IsCritical()
-    {
-        int random = s_random.Next(0, 100);
-        int minNumberToCrit = 70;
-
-        if (random >= minNumberToCrit)
-        {
-            return true;
-        }
-
-        return false;
     }
 
     public override Gladiator Clone()
@@ -218,28 +208,28 @@ public class Tyyr : Gladiator
 
     public Tyyr(int health = 500, int damage = 200, string name = "Tyyr") : base(health, damage, name)
     {
-        _attackCount = 0;
+        _attackCount = 1;
         _maxAttackCount = 3;
     }
 
-    public override void Attack(Gladiator gladiator, out int damageDone)
+    public override void Attack(Gladiator gladiator)
     {
-        damageDone = Damage;
+        Gladiator enemy = gladiator;
 
-        base.Attack(gladiator, out damageDone);
-
-        if (_attackCount >= _maxAttackCount)
+        if (_attackCount == _maxAttackCount)
         {
-            base.Attack(gladiator, out damageDone);
+            base.Attack(enemy);
 
-            Console.WriteLine($"Crit! Double damage!");
+            Console.WriteLine($"Double attack!");
 
-            damageDone = Damage * 2;
+            base.Attack(gladiator);
 
             _attackCount = 0;
         }
         else
         {
+            base.Attack(gladiator);
+
             _attackCount++;
         }
     }
@@ -283,17 +273,15 @@ public class Tank : Gladiator
     {
         int healAmmount = 500;
 
-        if (_maxHealth > Health + healAmmount)
-        {
-            Health += healAmmount;
+        Health = Math.Min(_maxHealth, Health += healAmmount);
 
-            Console.WriteLine("Blessed heal!");
+        if (Health == _maxHealth)
+        {
+            Console.WriteLine("Healed to full.");
         }
         else
         {
-            Health = _maxHealth;
-
-            Console.WriteLine("Healed to full.");
+            Console.WriteLine($"Blessed heal! + {healAmmount} HP");
         }
     }
 
@@ -312,8 +300,10 @@ public class Mage : Gladiator
         _mana = 100;
     }
 
-    public override void Attack(Gladiator gladiator, out int damageDone)
+    public override void Attack(Gladiator gladiator)
     {
+        Gladiator enemy = gladiator;
+
         int tempDamage = Damage;
 
         if (_mana >= 20)
@@ -322,13 +312,13 @@ public class Mage : Gladiator
 
             CastFireball();
 
-            base.Attack(gladiator, out damageDone);
+            base.Attack(enemy);
 
             Damage = tempDamage;
         }
         else
         {
-            base.Attack(gladiator, out damageDone);
+            base.Attack(gladiator);
 
             Console.WriteLine("No mana, attacking with hand.");
         }
@@ -349,36 +339,23 @@ public class Mage : Gladiator
 
 public class Dagger : Gladiator
 {
-    private static Random s_random = new Random();
-
     public Dagger(int health = 1000, int damage = 100, string name = "Dagger") : base(health, damage, name)
     {
     }
 
     public override void TakeDamage(int damage)
     {
-        if (IsDodged() == false)
-        {
-            base.TakeDamage(damage);
-        }
-        else
+        int minNumberToDodge = 30;
+
+        if (ConsoleUtils.RoolChance(minNumberToDodge))
         {
             Console.WriteLine("Dodged!");
             base.TakeDamage(0);
         }
-    }
-
-    private bool IsDodged()
-    {
-        int random = s_random.Next(0, 100);
-        int minNumberToDodge = 65;
-
-        if (random >= minNumberToDodge)
+        else
         {
-            return true;
+            base.TakeDamage(damage);
         }
-
-        return false;
     }
 
     public override Gladiator Clone()
@@ -389,6 +366,15 @@ public class Dagger : Gladiator
 
 public class ConsoleUtils
 {
+    private static Random s_random = new Random();
+
+    public static bool RoolChance(int percent)
+    {
+        int random = s_random.Next(100 + 1);
+
+        return random <= percent;
+    }
+
     public static int ReadInt()
     {
         int number;
