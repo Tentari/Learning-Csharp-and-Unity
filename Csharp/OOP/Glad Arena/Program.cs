@@ -41,7 +41,6 @@ public class Arena
         {
             _firstGladiator.Attack(_secondGladiator);
 
-
             _secondGladiator.Attack(_firstGladiator);
 
             Console.WriteLine(
@@ -309,9 +308,11 @@ public class Mage : Gladiator
 
     private void CastFireball()
     {
+        int fireBallDamage = 300;
+
         Console.WriteLine("Fireball casted!");
 
-        Damage += 300;
+        Damage += fireBallDamage;
     }
 
     public override Gladiator Clone()
