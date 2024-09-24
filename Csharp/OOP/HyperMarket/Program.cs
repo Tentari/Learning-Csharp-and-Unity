@@ -37,15 +37,13 @@ public class Shop
 
             ShowClientInfo();
 
-            if (CanPay())
-            {
-                SellItems();
-            }
-            else
+            while (CanClientPay() == false)
             {
                 Console.WriteLine("Not enough money. I will remove random item from cart.");
                 _client.RemoveItem();
             }
+
+            SellItems();
 
             Console.WriteLine($"\nShop profit: {_profit}");
 
@@ -57,8 +55,8 @@ public class Shop
 
     private void SellItems()
     {
-        GiveItemsToCustomer();
         _profit += _client.SumOfCart;
+        GiveItemsToCustomer();
     }
 
     private void GiveItemsToCustomer()
@@ -125,7 +123,7 @@ public class Shop
         Console.WriteLine($"I have {_client.Money} money.");
     }
 
-    private bool CanPay()
+    private bool CanClientPay()
     {
         return _client.Money >= _client.SumOfCart;
     }
@@ -150,7 +148,7 @@ public class Client
 
     public int SumOfCart => _cart.SumOfItems();
 
-    public int Money { get; private set; }
+    public int Money { get; }
 
     public void InsertItemIntoCart(Item item)
     {
@@ -168,6 +166,8 @@ public class Client
         {
             _bag.AddItem(item);
         }
+
+        _cart.Clear();
     }
 
     public void RemoveItem()
@@ -218,6 +218,12 @@ public class Inventory
     {
         _items.RemoveAt(ConsoleUtils.GetRandomnNumber(0, _items.Count - 1));
     }
+
+    public void Clear()
+    {
+        _items.Clear();
+    }
+}
 
 public class Item
 {
