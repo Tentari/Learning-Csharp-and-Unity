@@ -32,14 +32,11 @@ public class Arena
         Console.Clear();
         Fight();
 
-        WinnerMessage();
+        AnnounceWinner();
     }
 
     private void Fight()
     {
-        int firstGladiatorHealth = _firstGladiator.Health;
-        int secondGladiatorDamage;
-
         while (_firstGladiator.Health > 0 && _secondGladiator.Health > 0)
         {
             _firstGladiator.Attack(_secondGladiator);
@@ -52,7 +49,7 @@ public class Arena
         }
     }
 
-    private void WinnerMessage()
+    private void AnnounceWinner()
     {
         if (_firstGladiator.Health <= 0 && _secondGladiator.Health <= 0)
         {
@@ -73,15 +70,15 @@ public class Arena
         ShowGladiators();
 
         Console.WriteLine("Choose first gladiator: ");
-        _firstGladiator = CreateGladiator();
+        _firstGladiator = CloneGladiator();
 
         ShowGladiators();
 
         Console.WriteLine("Choose second gladiator: ");
-        _secondGladiator = CreateGladiator();
+        _secondGladiator = CloneGladiator();
     }
 
-    private Gladiator CreateGladiator()
+    private Gladiator CloneGladiator()
     {
         Gladiator gladiator = null;
 
@@ -153,46 +150,39 @@ public abstract class Gladiator
     {
         gladiator.TakeDamage(Damage);
 
-        DrawDamageDone(gladiator);
+        DrawDamageDone(gladiator.Name);
     }
 
     public abstract Gladiator Clone();
 
-    public void DrawDamageDone(Gladiator gladiator)
+    private void DrawDamageDone(string defenderName)
     {
-        Console.WriteLine($"{Name} attacks {gladiator.Name} for {Damage}");
+        Console.WriteLine($"{Name} attacks {defenderName} for {Damage}");
     }
 }
 
 public class Fighter : Gladiator
 {
-    private static Random s_random = new Random();
-
     public Fighter(int health = 1000, int damage = 50, string name = "Fighter") : base(health, damage, name)
     {
     }
 
-    public override void Attack(Gladiator gladiator)
+    public override void Attack(Gladiator enemy)
     {
-        Gladiator enemy = gladiator;
-
         int minCritChance = 30;
-        int tempDamage = Damage;
+        int baseDamage = Damage;
+        int doubleDamage = 2;
 
         if (ConsoleUtils.RoolChance(minCritChance))
         {
-            Damage *= 2;
+            Damage *= doubleDamage;
 
             Console.WriteLine("Critical hit!");
-
-            base.Attack(enemy);
-
-            Damage = tempDamage;
         }
-        else
-        {
-            base.Attack(enemy);
-        }
+
+        base.Attack(enemy);
+
+        Damage = baseDamage;
     }
 
     public override Gladiator Clone()
@@ -212,12 +202,10 @@ public class Tyyr : Gladiator
         _maxAttackCount = 3;
     }
 
-    public override void Attack(Gladiator gladiator)
+    public override void Attack(Gladiator enemy)
     {
-        Gladiator enemy = gladiator;
-
         base.Attack(enemy);
-        
+
         if (_attackCount == _maxAttackCount)
         {
             Console.WriteLine($"Double attack!");
@@ -267,7 +255,7 @@ public class Tank : Gladiator
         }
     }
 
-    public void CastHeal()
+    private void CastHeal()
     {
         int healAmmount = 500;
 
@@ -298,31 +286,28 @@ public class Mage : Gladiator
         _mana = 100;
     }
 
-    public override void Attack(Gladiator gladiator)
+    public override void Attack(Gladiator enemy)
     {
-        Gladiator enemy = gladiator;
+        int baseDamage = Damage;
+        int spellManaUsage = 20;
 
-        int tempDamage = Damage;
-
-        if (_mana >= 20)
+        if (_mana >= spellManaUsage)
         {
-            _mana -= 20;
+            _mana -= spellManaUsage;
 
             CastFireball();
-
-            base.Attack(enemy);
-
-            Damage = tempDamage;
         }
         else
         {
-            base.Attack(gladiator);
-
             Console.WriteLine("No mana, attacking with hand.");
         }
+
+        base.Attack(enemy);
+
+        Damage = baseDamage;
     }
 
-    public void CastFireball()
+    private void CastFireball()
     {
         Console.WriteLine("Fireball casted!");
 
@@ -348,7 +333,6 @@ public class Dagger : Gladiator
         if (ConsoleUtils.RoolChance(minNumberToDodge))
         {
             Console.WriteLine("Dodged!");
-            base.TakeDamage(0);
         }
         else
         {
