@@ -12,13 +12,13 @@ class Program
 
 public class Shop
 {
-    private Client _client;
+    private Client _client = new();
 
     private int _profit;
 
-    private Queue<Client> _clients;
+    private readonly Queue<Client> _clients;
 
-    private List<Item> _items;
+    private List<Item> _items = [];
 
     public Shop()
     {
@@ -66,8 +66,8 @@ public class Shop
 
     private void GenerateItems()
     {
-        _items = new List<Item>
-        {
+        _items =
+        [
             new Item("Apple", 10),
             new Item("Banana", 15),
             new Item("Orange", 20),
@@ -83,14 +83,14 @@ public class Shop
             new Item("Blueberry", 70),
             new Item("Avocado", 75),
             new Item("Lemon", 80)
-        };
+        ];
     }
 
     private Client GenerateClient()
     {
-        int maxCartCount = 5;
-        int minCartCount = 1;
-        int cartCount = ConsoleUtils.GetRandomnNumber(minCartCount, maxCartCount + 1);
+        const int MaxCartCount = 5;
+        const int MinCartCount = 1;
+        int cartCount = ConsoleUtils.GetRandomnNumber(MinCartCount, MaxCartCount + 1);
 
         Client client = new Client();
 

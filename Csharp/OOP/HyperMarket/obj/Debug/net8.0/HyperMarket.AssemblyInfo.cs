@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HyperMarket")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d0e2e5dc635275bcb66326cd9befd19db85889d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9e07f8639f8f1cdbff46921dfe0b893fda6837e")]
 [assembly: System.Reflection.AssemblyProductAttribute("HyperMarket")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HyperMarket")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
