@@ -191,14 +191,12 @@ public class Sniper : Soldier
 
     public override void Attack(Company company)
     {
-        int currentDamage = Damage;
         int damageMultiplier = 3;
+        int currentDamage = Damage * damageMultiplier;
 
-        Damage *= damageMultiplier;
+        Soldier soldier = company.GetRandomSoldier();
 
-        base.Attack(company);
-
-        Damage = currentDamage;
+        soldier.TakeDamage(currentDamage);
     }
 }
 
@@ -210,29 +208,14 @@ public class Grenadier : Soldier
 
     public override void Attack(Company company)
     {
-        int firstEnemy = ConsoleUtils.GetRandomnNumber(0, company.Soldiers.Count - 1);
-        int secondEnemy = firstEnemy;
-        int thirdEnemy = firstEnemy;
+        int amountToAttack = 10;
 
-        base.Attack(company.Soldiers[firstEnemy]);
+        IEnumerable<Soldier> soldiersToAttack = company.Soldiers
+            .OrderBy(x => ConsoleUtils.GetRandomnNumber(0, company.Soldiers.Count)).Take(amountToAttack);
 
-        if (company.Soldiers.Count() > 1)
+        foreach (Soldier soldier in soldiersToAttack)
         {
-            do
-            {
-                secondEnemy = ConsoleUtils.GetRandomnNumber(0, company.Soldiers.Count - 1);
-            } while (secondEnemy == firstEnemy);
-
-            base.Attack(company.Soldiers[secondEnemy]);
-        }
-        else if (company.Soldiers.Count() > 2)
-        {
-            do
-            {
-                thirdEnemy = ConsoleUtils.GetRandomnNumber(0, company.Soldiers.Count - 1);
-            } while (thirdEnemy == firstEnemy || thirdEnemy == secondEnemy);
-
-            base.Attack(company.Soldiers[thirdEnemy]);
+            soldier.TakeDamage(Damage);
         }
     }
 }
