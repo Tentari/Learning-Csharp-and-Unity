@@ -28,8 +28,7 @@ public class FishMan
         const int SkipACicleCommand = 3;
 
         bool isOpen = true;
-
-
+        
         while (isOpen)
         {
             Console.WriteLine(
@@ -71,7 +70,7 @@ public class FishMan
 
     public void SkipACycle()
     {
-        _tank.SkipACycle();
+        _tank.SkipCycle();
     }
 
     public void AddFishToTank()
@@ -124,7 +123,7 @@ public class Tank
         _fishes.RemoveAt(userInput);
     }
 
-    public void SkipACycle()
+    public void SkipCycle()
     {
         for (int i = _fishes.Count - 1; i >= 0; i--)
         {
