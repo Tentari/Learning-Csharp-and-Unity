@@ -49,8 +49,12 @@ public class Zoo
 
     public void Work()
     {
-        Console.WriteLine("Welcome to Zoo! Choose cage to see animals: ");
-        ShowCages();
+        bool isOpen = true;
+
+        while (isOpen)
+        {
+            ShowCageByIndex();
+        }
     }
 
     private void ShowCages()
@@ -59,10 +63,22 @@ public class Zoo
 
         foreach (Cage cage in _cages)
         {
-            Console.WriteLine($"Cage {CagesNumber++}:");
-
-            cage.ShowAnimals();
+            Console.WriteLine($"Cage {CagesNumber++}");
         }
+    }
+
+    private void ShowCageByIndex()
+    {
+        Console.WriteLine("Welcome to Zoo! Choose cage to see animals: ");
+        
+        ShowCages();
+
+        int userInput = ConsoleUtils.ReadInt();
+
+        if (userInput > 0 && userInput <= _cages.Count)
+            _cages[userInput - 1].ShowAnimals();
+        else
+            Console.WriteLine("Wrong input.");
     }
 }
 
@@ -175,6 +191,11 @@ public class Animal
     {
         Console.WriteLine($"{_name} - {_sound} - {_gender}");
     }
+    
+    public Animal Copy()
+    {
+        return new Animal(_name, _sound);
+    }
 
     private string GenerateGender()
     {
@@ -183,11 +204,6 @@ public class Animal
         string gender = genders[ConsoleUtils.GetRandomnNumber(genders.Length)];
 
         return gender;
-    }
-
-    public Animal Copy()
-    {
-        return new Animal(_name, _sound);
     }
 }
 
@@ -207,5 +223,17 @@ public class ConsoleUtils
         int random = s_random.Next(maxNumber);
 
         return random;
+    }
+    
+    public static int ReadInt()
+    {
+        int number;
+
+        while (int.TryParse(Console.ReadLine(), out number) == false)
+        {
+            Console.WriteLine("Invalid input. Please enter a valid number.");
+        }
+
+        return number;
     }
 }
