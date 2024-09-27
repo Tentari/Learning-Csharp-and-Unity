@@ -16,25 +16,25 @@ class Program
 
 public class ZooFactory
 {
-    private List<Cage> _cages;
     private CageFactory _cageFactory;
 
     public ZooFactory()
     {
         _cageFactory = new CageFactory();
-        _cages = new List<Cage>();
     }
 
     public Zoo Create()
     {
+        List<Cage> Cages = new List<Cage>();
+
         int cagesCount = 5;
 
         for (int i = 0; i < cagesCount; i++)
         {
-            _cages.Add(_cageFactory.Create());
+            Cages.Add(_cageFactory.Create());
         }
 
-        return new Zoo(_cages);
+        return new Zoo(Cages);
     }
 }
 
@@ -56,7 +56,7 @@ public class Zoo
     {
         int CagesNumber = 1;
 
-        foreach (Cage cage in _cages)
+        for (int i = 0; i < _cages.Count; i++)
         {
             Console.WriteLine($"Cage {CagesNumber++}");
         }
@@ -99,7 +99,7 @@ public class CageFactory
     {
         List<Animal> animals = new List<Animal>();
 
-        Animal animal = _animalFactory.Create(ConsoleUtils.GetRandomnNumber(_animalFactory.AnimalsCount()));
+        Animal animal = _animalFactory.Create(ConsoleUtils.GetRandomnNumber(_animalFactory.AnimalsCount));
 
         for (int i = 0; i < animalsCount; i++)
         {
@@ -114,7 +114,7 @@ public class CageFactory
         int minAnimalsCount = 2;
         int maxAnimalsCount = 5;
 
-        int animalsCount = ConsoleUtils.GetRandomnNumber(minAnimalsCount, maxAnimalsCount + 1);
+        int animalsCount = ConsoleUtils.GetRandomnNumber(minAnimalsCount, maxAnimalsCount);
 
         return animalsCount;
     }
@@ -147,7 +147,7 @@ public class AnimalFactory
         _baseAnimals = Fill();
     }
 
-    public int AnimalsCount() => _baseAnimals.Count;
+    public int AnimalsCount => _baseAnimals.Count;
 
     public Animal Create(int index)
     {
