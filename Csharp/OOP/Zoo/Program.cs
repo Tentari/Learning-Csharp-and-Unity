@@ -25,16 +25,16 @@ public class ZooFactory
 
     public Zoo Create()
     {
-        List<Cage> Cages = new List<Cage>();
+        List<Cage> cages = new List<Cage>();
 
         int cagesCount = 5;
 
         for (int i = 0; i < cagesCount; i++)
         {
-            Cages.Add(_cageFactory.Create());
+            cages.Add(_cageFactory.Create());
         }
 
-        return new Zoo(Cages);
+        return new Zoo(cages);
     }
 }
 
@@ -99,7 +99,7 @@ public class CageFactory
     {
         List<Animal> animals = new List<Animal>();
 
-        Animal animal = _animalFactory.Create(ConsoleUtils.GetRandomnNumber(_animalFactory.AnimalsCount));
+        Animal animal = _animalFactory.Create(ConsoleUtils.GetRandomNumber(_animalFactory.AnimalsCount));
 
         for (int i = 0; i < animalsCount; i++)
         {
@@ -114,9 +114,7 @@ public class CageFactory
         int minAnimalsCount = 2;
         int maxAnimalsCount = 5;
 
-        int animalsCount = ConsoleUtils.GetRandomnNumber(minAnimalsCount, maxAnimalsCount);
-
-        return animalsCount;
+        return ConsoleUtils.GetRandomNumber(minAnimalsCount, maxAnimalsCount);
     }
 }
 
@@ -156,7 +154,7 @@ public class AnimalFactory
 
     private List<Animal> Fill()
     {
-        List<Animal> baseAnimals = new List<Animal>()
+        return new List<Animal>()
         {
             new("Tiger", "Roar"),
             new("Giraffe", "Grunt"),
@@ -164,8 +162,6 @@ public class AnimalFactory
             new("Monkey", "Squeak"),
             new("Horse", "Neigh")
         };
-
-        return baseAnimals;
     }
 }
 
@@ -196,9 +192,7 @@ public class Animal
     {
         string[] genders = { "Male", "Female" };
 
-        string gender = genders[ConsoleUtils.GetRandomnNumber(genders.Length)];
-
-        return gender;
+        return genders[ConsoleUtils.GetRandomNumber(genders.Length)];
     }
 }
 
@@ -206,18 +200,14 @@ public class ConsoleUtils
 {
     private static Random s_random = new Random();
 
-    public static int GetRandomnNumber(int minNumber, int maxNumber)
+    public static int GetRandomNumber(int minNumber, int maxNumber)
     {
-        int random = s_random.Next(minNumber, maxNumber + 1);
-
-        return random;
+        return s_random.Next(minNumber, maxNumber + 1);
     }
 
-    public static int GetRandomnNumber(int maxNumber)
+    public static int GetRandomNumber(int maxNumber)
     {
-        int random = s_random.Next(maxNumber);
-
-        return random;
+        return s_random.Next(maxNumber);
     }
 
     public static int ReadInt()
