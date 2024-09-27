@@ -54,11 +54,11 @@ public class Zoo
 
     private void ShowCages()
     {
-        int CagesNumber = 1;
+        int cagesNumber = 1;
 
         for (int i = 0; i < _cages.Count; i++)
         {
-            Console.WriteLine($"Cage {CagesNumber++}");
+            Console.WriteLine($"Cage {cagesNumber++}");
         }
     }
 
