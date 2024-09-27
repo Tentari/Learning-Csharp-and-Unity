@@ -49,12 +49,7 @@ public class Zoo
 
     public void Work()
     {
-        bool isOpen = true;
-
-        while (isOpen)
-        {
-            ShowCageByIndex();
-        }
+        ShowCageByIndex();
     }
 
     private void ShowCages()
@@ -70,7 +65,7 @@ public class Zoo
     private void ShowCageByIndex()
     {
         Console.WriteLine("Welcome to Zoo! Choose cage to see animals: ");
-        
+
         ShowCages();
 
         int userInput = ConsoleUtils.ReadInt();
@@ -191,7 +186,7 @@ public class Animal
     {
         Console.WriteLine($"{_name} - {_sound} - {_gender}");
     }
-    
+
     public Animal Copy()
     {
         return new Animal(_name, _sound);
@@ -224,7 +219,7 @@ public class ConsoleUtils
 
         return random;
     }
-    
+
     public static int ReadInt()
     {
         int number;
