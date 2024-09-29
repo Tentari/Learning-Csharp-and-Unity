@@ -1,0 +1,15 @@
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\bin\Debug\net8.0\WantedList.exe
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\bin\Debug\net8.0\WantedList.deps.json
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\bin\Debug\net8.0\WantedList.runtimeconfig.json
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\bin\Debug\net8.0\WantedList.dll
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\bin\Debug\net8.0\WantedList.pdb
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\WantedList.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\WantedList.AssemblyInfoInputs.cache
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\WantedList.AssemblyInfo.cs
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\WantedList.csproj.CoreCompileInputs.cache
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\WantedList.sourcelink.json
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\WantedList.dll
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\refint\WantedList.dll
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\WantedList.pdb
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\WantedList.genruntimeconfig.cache
+C:\Users\renat\Desktop\Projects\GitHub\Learning-Csharp-and-Unity\Csharp\LinQ\WantedList\obj\Debug\net8.0\ref\WantedList.dll
