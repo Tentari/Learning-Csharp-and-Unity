@@ -1,4 +1,4 @@
-﻿namespace WantedList;
+﻿namespace Arstotzka;
 
 class Program
 {
