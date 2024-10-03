@@ -70,7 +70,7 @@ public class Arstotzka
 
     private void ShowCriminals(List<Criminal> criminals)
     {
-        if (criminals.Count() > 0)
+        if (criminals.Any())
         {
             foreach (Criminal criminal in criminals)
             {
@@ -93,8 +93,8 @@ public class CriminalFactory
 
     private string GetRandomFullName()
     {
-        List<string> fullNames = new List<string>()
-        {
+        List<string> fullNames =
+        [
             "John Smith",
             "Jane Doe",
             "Michael Johnson",
@@ -108,8 +108,8 @@ public class CriminalFactory
             "Ava Martinez",
             "Joseph Smith",
             "Liam Johnson",
-            "Mason Williams",
-        };
+            "Mason Williams"
+        ];
 
         return fullNames[ConsoleUtils.GetRandomNumber(fullNames.Count - 1)];
     }

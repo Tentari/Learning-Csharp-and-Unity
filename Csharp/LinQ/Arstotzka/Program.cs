@@ -154,16 +154,4 @@ public class ConsoleUtils
 
         return random;
     }
-
-    public static int ReadInt()
-    {
-        int number;
-
-        while (int.TryParse(Console.ReadLine(), out number) == false)
-        {
-            Console.WriteLine("Invalid input. Please enter a valid number.");
-        }
-
-        return number;
-    }
 }
