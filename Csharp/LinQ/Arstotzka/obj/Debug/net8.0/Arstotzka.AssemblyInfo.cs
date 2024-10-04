@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Arstotzka")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1cccc27609bad17c1c729753a8ca49d4c1c4cafe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e1e8894441c3c9f57a88ec3fda19a9b93a68f89d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Arstotzka")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Arstotzka")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
