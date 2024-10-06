@@ -23,6 +23,6 @@ class Program
         
         soldiers = soldiers.Where(soldiers => soldiers.StartsWith("B") == false).ToList();
         
-        betterSoldier.ForEach(soldier => Console.WriteLine(soldier));
+        betterSoldiers.ForEach(soldier => Console.WriteLine(soldier));
     }
 }
