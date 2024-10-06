@@ -119,7 +119,12 @@ public class Arena
     }
 }
 
-public abstract class Gladiator
+interface Idamagable
+{
+    void TakeDamage(int damage);
+}
+
+public abstract class Gladiator : Idamagable
 {
     public Gladiator(int health, int damage, string name)
     {
@@ -145,7 +150,7 @@ public abstract class Gladiator
         }
     }
 
-    public virtual void Attack(Gladiator gladiator)
+    public virtual void Attack(Idamagable)
     {
         gladiator.TakeDamage(Damage);
 
