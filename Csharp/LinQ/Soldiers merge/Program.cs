@@ -14,12 +14,12 @@ class Program
             "Bomba",
         ];
         
-        List<string> betterSoldier =
+        List<string> betterSoldiers =
         [
             "Amogus",
         ];
 
-        betterSoldier = betterSoldier.Concat(soldiers.Where(soldiers => soldiers.StartsWith("B"))).ToList();
+        betterSoldiers = betterSoldiers.Concat(soldiers.Where(soldiers => soldiers.StartsWith("B"))).ToList();
         
         soldiers = soldiers.Where(soldiers => soldiers.StartsWith("B") == false).ToList();
         
