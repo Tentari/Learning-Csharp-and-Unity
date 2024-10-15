@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Top players")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04cc4bb1824ea783a42c0f6c6d30b1b231063740")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c814036f5aef36ba718bcb52950a67ed5022b55")]
 [assembly: System.Reflection.AssemblyProductAttribute("Top players")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Top players")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

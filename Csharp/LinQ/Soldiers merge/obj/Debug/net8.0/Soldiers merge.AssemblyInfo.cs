@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Soldiers merge")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3eff61e3614c4c97cb7e27ef83fd5519e49f67c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c814036f5aef36ba718bcb52950a67ed5022b55")]
 [assembly: System.Reflection.AssemblyProductAttribute("Soldiers merge")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Soldiers merge")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
