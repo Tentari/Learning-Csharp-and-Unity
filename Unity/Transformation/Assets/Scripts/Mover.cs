@@ -3,8 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class Mover : MonoBehaviour
 {
-    private float _moveSpeed = 2f;
-    
+    private float _md oveSpee= 2f;
+
     private void Update()
     {
         Move();
