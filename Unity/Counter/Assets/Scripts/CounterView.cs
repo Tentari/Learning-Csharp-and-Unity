@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class CounterView : MonoBehaviour
 {
-    [SerializeField] private float _countdownTimer;
     [SerializeField] private Counter _counter;
     [SerializeField] private TextMeshProUGUI _counterText;
     [SerializeField] private Color _defaultColor;
-    [SerializeField] private Color _startColor;
 
     public event Action MouseClicked;
 
