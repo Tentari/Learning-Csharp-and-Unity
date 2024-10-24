@@ -7,11 +7,10 @@ public class Counter : MonoBehaviour
     [SerializeField] private float _countdownTime;
     [SerializeField] private float _startNumber;
     [SerializeField] private float _numberToAdd;
-    [SerializeField] private CounterView _counterView;
 
     private float _currentNumber;
     private bool _isRun;
-    private bool _isCoroutineRun;
+    private Coroutine _countdownCoroutine;
 
     public float StartNumber => _startNumber;
 
@@ -24,41 +23,42 @@ public class Counter : MonoBehaviour
 
     private void Update()
     {
-        TryAddNumber();
+        CheckMouseInput();
     }
 
-    private void OnEnable()
+    private void CheckMouseInput()
     {
-        _counterView.MouseClicked += UpdateState;
-    }
-
-    private void OnDisable()
-    {
-        _counterView.MouseClicked -= UpdateState;
-    }
-
-    private void TryAddNumber()
-    {
-        if (_isRun && !_isCoroutineRun)
-        {
-            StartCoroutine(DelayedAddNumber());
-        }
+        if (Input.GetMouseButtonDown(0))
+            UpdateState();
     }
 
     private void UpdateState()
     {
         _isRun = !_isRun;
+
+        if (_isRun)
+        {
+            if (_countdownCoroutine != null)
+            {
+                StopCoroutine(_countdownCoroutine);
+            }
+            
+            _countdownCoroutine = StartCoroutine(DelayedAddNumber());
+        }
+        else if (!_isRun && _countdownCoroutine != null)
+        {
+            StopCoroutine(_countdownCoroutine);
+            _countdownCoroutine = null;
+        }
     }
 
     private IEnumerator DelayedAddNumber()
     {
-        _isCoroutineRun = true;
-
-        yield return new WaitForSeconds(_countdownTime);
-
-        _currentNumber += _numberToAdd;
-        NumberChanged?.Invoke(_currentNumber);
-
-        _isCoroutineRun = false;
+        while (_isRun)
+        {
+            yield return new WaitForSeconds(_countdownTime);
+            _currentNumber += _numberToAdd;
+            NumberChanged?.Invoke(_currentNumber);
+        }
     }
 }
