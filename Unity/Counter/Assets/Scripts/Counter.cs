@@ -12,9 +12,9 @@ public class Counter : MonoBehaviour
     private bool _isRun;
     private Coroutine _countdownCoroutine;
 
-    public float StartNumber => _startNumber;
-
     public event Action<float> NumberChanged;
+
+    public float StartNumber => _startNumber;
 
     private void Start()
     {
@@ -28,7 +28,9 @@ public class Counter : MonoBehaviour
 
     private void GetMouseInput()
     {
-        if (Input.GetMouseButtonDown(0))
+        const int LeftMouseInput = 0;
+
+        if (Input.GetMouseButtonDown(LeftMouseInput))
             UpdateState();
     }
 
@@ -38,25 +40,25 @@ public class Counter : MonoBehaviour
 
         if (_isRun)
         {
+            if (_countdownCoroutine == null)
+                _countdownCoroutine = StartCoroutine(DelayedAddNumber());
+        }
+        else if (!_isRun)
+        {
             if (_countdownCoroutine != null)
             {
                 StopCoroutine(_countdownCoroutine);
+                _countdownCoroutine = null;
             }
-            
-            _countdownCoroutine = StartCoroutine(DelayedAddNumber());
-        }
-        else if (!_isRun && _countdownCoroutine != null)
-        {
-            StopCoroutine(_countdownCoroutine);
-            _countdownCoroutine = null;
         }
     }
 
     private IEnumerator DelayedAddNumber()
     {
+        yield return new WaitForSeconds(_countdownTime);
+
         while (_isRun)
         {
-            yield return new WaitForSeconds(_countdownTime);
             _currentNumber += _numberToAdd;
             NumberChanged?.Invoke(_currentNumber);
         }
