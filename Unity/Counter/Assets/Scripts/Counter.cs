@@ -23,10 +23,10 @@ public class Counter : MonoBehaviour
 
     private void Update()
     {
-        CheckMouseInput();
+        GetMouseInput();
     }
 
-    private void CheckMouseInput()
+    private void GetMouseInput()
     {
         if (Input.GetMouseButtonDown(0))
             UpdateState();
