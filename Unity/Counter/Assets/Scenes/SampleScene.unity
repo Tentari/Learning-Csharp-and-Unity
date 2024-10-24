@@ -694,11 +694,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fb592396da47b6b88369b91c2f5efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _countdownTimer: 10
   _counter: {fileID: 1913981572}
   _counterText: {fileID: 1106753274}
   _defaultColor: {r: 0.9528302, g: 0, b: 0.01792345, a: 1}
-  _startColor: {r: 0.24505374, g: 0.990566, b: 0.07943219, a: 1}
 --- !u!4 &1913981571
 Transform:
   m_ObjectHideFlags: 0
@@ -726,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48760ad1a2e30564cb43190252879e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _countdownTime: 0.5
   _startNumber: 0
   _numberToAdd: 1
   _counterView: {fileID: 1913981569}
