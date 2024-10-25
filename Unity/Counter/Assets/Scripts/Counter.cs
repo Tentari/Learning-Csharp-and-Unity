@@ -55,10 +55,11 @@ public class Counter : MonoBehaviour
 
     private IEnumerator DelayedAddNumber()
     {
-        yield return new WaitForSeconds(_countdownTime);
-
+        WaitForSeconds countdownTime = new WaitForSeconds(_countdownTime);
+        
         while (_isRun)
         {
+            yield return countdownTime;
             _currentNumber += _numberToAdd;
             NumberChanged?.Invoke(_currentNumber);
         }
