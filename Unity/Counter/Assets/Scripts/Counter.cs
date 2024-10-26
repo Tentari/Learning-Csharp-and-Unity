@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
+    private const int LeftClickCommand = 0;
+
     [SerializeField] private float _countdownTime;
     [SerializeField] private float _numberToAdd;
-    
-    [field: SerializeField] public float StartNumber { get; private set; }
-
-    private const int LeftClickCommand = 0;
 
     private float _currentNumber;
     private Coroutine _countdownCoroutine;
 
     public event Action<float> NumberChanged;
+
+    [field: SerializeField] public float StartNumber { get; private set; }
 
     private void Start()
     {
@@ -38,7 +38,7 @@ public class Counter : MonoBehaviour
         {
             _countdownCoroutine = StartCoroutine(DelayedAddNumber());
         }
-        else if (_countdownCoroutine != null)
+        else
         {
             StopCoroutine(_countdownCoroutine);
             _countdownCoroutine = null;
