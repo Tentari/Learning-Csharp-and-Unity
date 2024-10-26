@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
+    [field: SerializeField] public float StartNumber { get; private set; }
+
     [SerializeField] private float _countdownTime;
-    [SerializeField] private float _startNumber;
     [SerializeField] private float _numberToAdd;
 
+    private const int LeftClickCommand = 0;
+
     private float _currentNumber;
-    private bool _isRun;
     private Coroutine _countdownCoroutine;
 
     public event Action<float> NumberChanged;
 
-    public float StartNumber => _startNumber;
-
     private void Start()
     {
-        _currentNumber = _startNumber;
+        _currentNumber = StartNumber;
     }
 
     private void Update()
@@ -28,40 +28,32 @@ public class Counter : MonoBehaviour
 
     private void GetMouseInput()
     {
-        const int LeftMouseInput = 0;
-
-        if (Input.GetMouseButtonDown(LeftMouseInput))
+        if (Input.GetMouseButtonDown(LeftClickCommand))
             UpdateState();
     }
 
     private void UpdateState()
     {
-        _isRun = !_isRun;
-
-        if (_isRun)
+        if (_countdownCoroutine == null)
         {
-            if (_countdownCoroutine == null)
-                _countdownCoroutine = StartCoroutine(DelayedAddNumber());
+            _countdownCoroutine = StartCoroutine(DelayedAddNumber());
         }
-        else if (!_isRun)
+        else if (_countdownCoroutine != null)
         {
-            if (_countdownCoroutine != null)
-            {
-                StopCoroutine(_countdownCoroutine);
-                _countdownCoroutine = null;
-            }
+            StopCoroutine(_countdownCoroutine);
+            _countdownCoroutine = null;
         }
     }
 
     private IEnumerator DelayedAddNumber()
     {
         WaitForSeconds countdownTime = new WaitForSeconds(_countdownTime);
-        
-        while (_isRun)
+
+        do
         {
             yield return countdownTime;
             _currentNumber += _numberToAdd;
             NumberChanged?.Invoke(_currentNumber);
-        }
+        } while (_countdownCoroutine != null);
     }
 }

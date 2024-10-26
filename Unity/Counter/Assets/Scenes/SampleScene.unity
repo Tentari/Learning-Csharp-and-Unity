@@ -724,10 +724,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48760ad1a2e30564cb43190252879e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <StartNumber>k__BackingField: 10
   _countdownTime: 0.5
-  _startNumber: 0
   _numberToAdd: 1
-  _counterView: {fileID: 1913981569}
 --- !u!1 &2121242808
 GameObject:
   m_ObjectHideFlags: 0
