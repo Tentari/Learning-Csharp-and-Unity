@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
-    [field: SerializeField] public float StartNumber { get; private set; }
-
     [SerializeField] private float _countdownTime;
     [SerializeField] private float _numberToAdd;
+    
+    [field: SerializeField] public float StartNumber { get; private set; }
 
     private const int LeftClickCommand = 0;
 
