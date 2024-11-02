@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
 public class Cube : MonoBehaviour
