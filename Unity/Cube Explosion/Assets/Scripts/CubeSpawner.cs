@@ -20,14 +20,15 @@ public class CubeSpawner : MonoBehaviour
         int quantity = GetQuantity();
         float divideChance = cube.DivideChance;
 
-        if (!CanDivide(divideChance)) return;
-        
-        cube.Destroy();
-            
-        for (int i = 0; i < quantity; i++)
+        if (CanDivide(divideChance))
         {
-            CreateCube(cube, divideChance);
+            for (int i = 0; i < quantity; i++)
+            {
+                CreateCube(cube, divideChance);
+            }
         }
+
+        cube.Destroy();
     }
 
     private void CreateCube(Cube cube, float divideChance)

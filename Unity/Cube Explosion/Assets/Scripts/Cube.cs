@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
 public class Cube : MonoBehaviour
@@ -8,7 +9,7 @@ public class Cube : MonoBehaviour
     [SerializeField] private Exploder _exploder;
 
     public float DivideChance { get; private set; } = 1;
-
+    
     private void OnDisable()
     {
         _exploder.Explode();
