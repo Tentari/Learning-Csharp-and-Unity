@@ -6,24 +6,24 @@ public class Exploder : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private float _force;
 
-    public void Explode()
+    public void Explode(List<Cube> cubes)
     {
-        foreach (Rigidbody explodableObject in GetExplodableObjects())
-            explodableObject.AddExplosionForce(_force, transform.position, _radius);
+        foreach (Rigidbody rigidbody in GetRigidbodies(cubes))
+            rigidbody.AddExplosionForce(_force, transform.position, _radius);
     }
 
-    private List<Rigidbody> GetExplodableObjects()
+    private List<Rigidbody> GetRigidbodies(List<Cube> cubes)
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, _radius);
+        List<Rigidbody> rigidbodies = new();
 
-        List<Rigidbody> objects = new();
-
-        foreach (Collider hit in hits)
+        foreach (Cube cube in cubes)
         {
-            if (hit.attachedRigidbody)
-                objects.Add(hit.attachedRigidbody);
+            if (cube.TryGetComponent(out Rigidbody rigidbody))
+            {
+                rigidbodies.Add(rigidbody);
+            }
         }
 
-        return objects;
+        return rigidbodies;
     }
 }
