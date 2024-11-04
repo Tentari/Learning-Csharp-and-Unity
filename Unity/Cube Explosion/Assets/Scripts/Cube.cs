@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
 public class Cube : MonoBehaviour
@@ -7,8 +8,15 @@ public class Cube : MonoBehaviour
     [SerializeField] private Scaler _scaler;
 
     public float DivideChance { get; private set; } = 1;
+    
+    [field : SerializeField] public Rigidbody Rigidbody { get; private set; }
 
-    public void Death()
+    private void Awake()
+    {
+        Rigidbody = GetComponent<Rigidbody>();
+    }
+
+    public void Die()
     {
         Destroy(gameObject);
     }

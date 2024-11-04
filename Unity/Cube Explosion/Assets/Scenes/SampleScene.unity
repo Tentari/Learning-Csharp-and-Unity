@@ -148,7 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f499d270323364eb3836554c66ae2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickHandler: {fileID: 180579942}
 --- !u!4 &5877326
 Transform:
   m_ObjectHideFlags: 0
@@ -317,6 +316,7 @@ Transform:
   - {fileID: 1726879186}
   - {fileID: 2022204311}
   - {fileID: 496592346}
+  - {fileID: 1424510087}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &224290081
@@ -894,12 +894,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1424510082}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 15, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 196262232}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1488867076
 PrefabInstance:
@@ -1170,5 +1170,4 @@ SceneRoots:
   - {fileID: 820155102}
   - {fileID: 330585546}
   - {fileID: 5877326}
-  - {fileID: 1424510087}
   - {fileID: 196262232}

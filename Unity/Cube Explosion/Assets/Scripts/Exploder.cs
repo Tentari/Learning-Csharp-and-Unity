@@ -18,9 +18,9 @@ public class Exploder : MonoBehaviour
 
         foreach (Cube cube in cubes)
         {
-            if (cube.TryGetComponent(out Rigidbody rigidbody))
+            if (cube.Rigidbody)
             {
-                rigidbodies.Add(rigidbody);
+                rigidbodies.Add(cube.Rigidbody);
             }
         }
 

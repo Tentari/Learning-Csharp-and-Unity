@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 public class CubeSpawner : MonoBehaviour
 {
-    public List<Cube> CreateCubes(Cube cube)
+    public List<Cube> GenerateCubes(Cube cube)
     {
         List<Cube> cubes = new();
 
@@ -13,13 +13,13 @@ public class CubeSpawner : MonoBehaviour
 
         for (int i = 0; i < quantity; i++)
         {
-            cubes.Add(InitialiseCube(cube, divideChance));
+            cubes.Add(CreateCube(cube, divideChance));
         }
 
         return cubes;
     }
 
-    private Cube InitialiseCube(Cube cube, float divideChance)
+    private Cube CreateCube(Cube cube, float divideChance)
     {
         float halvedChance = divideChance / 2;
 

@@ -3,7 +3,7 @@ using Random = UnityEngine.Random;
 
 public class ClickHandler : MonoBehaviour
 {
-    private const int LeftClickCommand = 0;
+    private const int SplitCubeCommand = 0;
 
     [SerializeField] private Camera _camera;
     [SerializeField] private CubeSpawner _cubeSpawner;
@@ -33,16 +33,16 @@ public class ClickHandler : MonoBehaviour
 
     private void HandleMouseInput()
     {
-        if (Input.GetMouseButtonDown(LeftClickCommand))
+        if (Input.GetMouseButtonDown(SplitCubeCommand))
         {
             Cube cube = GetCube();
 
             if (cube)
             {
                 if (CanDivide(cube.DivideChance))
-                    _exploder.Explode(_cubeSpawner.CreateCubes(cube));
+                    _exploder.Explode(_cubeSpawner.GenerateCubes(cube));
 
-                cube.Death();
+                cube.Die();
             }
         }
     }
