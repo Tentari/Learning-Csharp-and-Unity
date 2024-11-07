@@ -23,9 +23,9 @@ public class ClickHandler : MonoBehaviour
 
     private Cube GetCube()
     {
-        Ray _ray = _camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(_ray, out RaycastHit hit, _maxDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, _maxDistance))
             return hit.collider.GetComponent<Cube>();
 
         return null;
@@ -40,7 +40,9 @@ public class ClickHandler : MonoBehaviour
             if (cube)
             {
                 if (CanDivide(cube.DivideChance))
-                    _exploder.Explode(_cubeSpawner.GenerateCubes(cube));
+                    _cubeSpawner.GenerateCubes(cube);
+                else
+                    _exploder.Explode(cube.transform.localScale.x);
 
                 cube.Die();
             }

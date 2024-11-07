@@ -268,7 +268,7 @@ MonoBehaviour:
   _camera: {fileID: 330585545}
   _cubeSpawner: {fileID: 5877325}
   _exploder: {fileID: 180579943}
-  _maxDistance: 20
+  _maxDistance: 30
 --- !u!114 &180579943
 MonoBehaviour:
   m_ObjectHideFlags: 0
