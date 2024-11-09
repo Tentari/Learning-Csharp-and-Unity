@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
 public class Cube : MonoBehaviour
@@ -9,7 +8,7 @@ public class Cube : MonoBehaviour
 
     public float DivideChance { get; private set; } = 1;
     
-    [field : SerializeField] public Rigidbody Rigidbody { get; private set; }
+    public Rigidbody Rigidbody { get; private set; }
 
     private void Awake()
     {

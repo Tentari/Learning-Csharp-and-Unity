@@ -25,27 +25,22 @@ public class ClickHandler : MonoBehaviour
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, _maxDistance))
-            return hit.collider.GetComponent<Cube>();
-
-        return null;
+        return Physics.Raycast(ray, out RaycastHit hit, _maxDistance) ? hit.collider.GetComponent<Cube>() : null;
     }
 
     private void HandleMouseInput()
     {
-        if (Input.GetMouseButtonDown(SplitCubeCommand))
-        {
-            Cube cube = GetCube();
+        if (!Input.GetMouseButtonDown(SplitCubeCommand)) return;
+        
+        Cube cube = GetCube();
 
-            if (cube)
-            {
-                if (CanDivide(cube.DivideChance))
-                    _cubeSpawner.GenerateCubes(cube);
-                else
-                    _exploder.Explode(cube.transform.localScale.x);
+        if (!cube) return;
+        
+        if (CanDivide(cube.DivideChance))
+            _cubeSpawner.GenerateCubes(cube);
+        else
+            _exploder.Explode(cube.transform.localScale.x);
 
-                cube.Die();
-            }
-        }
+        cube.Die();
     }
 }
